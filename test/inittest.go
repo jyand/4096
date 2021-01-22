@@ -14,12 +14,11 @@ func PlaceRandom(squares [N][N]uint16) [N][N]uint16 {
         ri := rand.Intn(N)
         rand.Seed(time.Now().UnixNano())
         rj := rand.Intn(N)
-        if squares[ri][rj] != 0 {
-                PlaceRandom(squares)
-        } else {
+        if squares[ri][rj] == 0 {
                 squares[ri][rj] = 2
+                return squares
         }
-        return squares
+        return PlaceRandom(squares)
 }
 
 func InitGame() [N][N]uint16{
@@ -29,14 +28,13 @@ func InitGame() [N][N]uint16{
                         squares[i][j] = 0
                 }
         }
-        return squares
+        return PlaceRandom(squares)
 }
 
 func main() {
         a := InitGame()
-        a = PlaceRandom(PlaceRandom(a))
         for j := 0 ; j < N ; j++ {
-                for i := 0 ; i < N ; i++ {
+                for i := N-1 ; i > 0 ; i -= 1 {
                         if a[i][j] == 0 {
                                 fmt.Printf("[ ]")
                         } else {
