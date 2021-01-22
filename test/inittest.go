@@ -3,7 +3,8 @@ import (
         "fmt"
         //"os"
         //"bufio"
-        "math"
+        "time"
+        "math/rand"
 )
 
 const N = 4
@@ -31,19 +32,17 @@ func InitGame() [N][N]uint16{
         return squares
 }
 
-// transforms the game's state each turn
-func Move(prev [N][N]uint16, m int, n int) [N][N]uint16 {
-}
-
-/*polymorphic wrapper for Move()
-func Directional(s string) [N][N]uint16 {
-        switch s {
-        default: return Move()
-        case "j": return Move()
-        case "k": return Move()
-        case "l": return Move()
-        }
-}*/
-
 func main() {
+        a := InitGame()
+        a = PlaceRandom(PlaceRandom(a))
+        for j := 0 ; j < N ; j++ {
+                for i := 0 ; i < N ; i++ {
+                        if a[i][j] == 0 {
+                                fmt.Printf("[ ]")
+                        } else {
+                                fmt.Printf("[%d]", a[i][j])
+                        }
+                }
+                fmt.Print("\n")
+        }
 }
